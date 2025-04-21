@@ -16,3 +16,7 @@ body {
     width: 850px; 
     height: auto;  
   }
+
+  div {
+    align-items: center;
+  }
