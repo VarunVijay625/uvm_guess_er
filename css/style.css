@@ -28,7 +28,7 @@ body {
     border-radius: 5px;
   }
 
-  .button:hover {
+  .btn:hover {
     background-color: lightgreen;
     color: white;
   }
