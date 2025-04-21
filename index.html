@@ -3,27 +3,13 @@
 <html>
 <head>
     <title>UVMGuessr</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmKKMQOproK0shfRGMj70n03icsCLk_hM"></script>
-    <script>
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 44.4950, lng: -73.1146 }, 
-                zoom: 12 
-            });
 
-            map.addListener('click', function(event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
-                alert("You guessed: Latitude " + lat + ", Longitude " + lng);
-            });
-        }
-    </script>
 
 </head>
 <body onload="initMap()">
     <h1>Welcome to UVMGuessr</h1>
     <h2>Hi Isaac</h2>
-    <div id="map" style="height: 500px; width: 100%;"></div>
+
     <p><a href="page.html">
         Go to PICTURE</a>
     </p>
@@ -31,6 +17,5 @@
         Go to MAP</a>
     </p>
 
-    
 </body>
 </html>
