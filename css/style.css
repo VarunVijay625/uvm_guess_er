@@ -22,7 +22,7 @@ body {
     align-items: center;
   }
 
-  .button {
+  .btn {
     font-size: 35px;
     background-color: green; 
     border-radius: 5px;
