@@ -29,6 +29,6 @@ body {
   }
 
   .btn:hover {
-    background-color: lightgreen;
+    background-color: rgb(72, 156, 72);
     color: white;
   }
