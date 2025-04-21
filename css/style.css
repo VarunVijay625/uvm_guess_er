@@ -20,3 +20,9 @@ body {
   div {
     align-items: center;
   }
+
+  button {
+    font-size: 35px;
+    background-color: green; 
+    border-radius: 5px;
+  }
