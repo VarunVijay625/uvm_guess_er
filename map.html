@@ -10,7 +10,7 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #3ac267;
         }
         .container {
             margin: 20px auto;
@@ -21,7 +21,7 @@
             margin-bottom: 10px;
         }
         #myImage {
-            width: 500px; /* Make the image larger */
+            width: 900px; 
             height: auto;
             border: 5px solid darkgreen;
             border-radius: 15px;
@@ -39,7 +39,7 @@
             margin: 10px auto;
         }
         #map {
-            width: 80%;
+            width: 60%;
             height: 600px;
             margin: 20px auto;
         }
@@ -95,6 +95,8 @@
 </head>
 <body onload="initMap()">
     <div class="container">
+        <h1>Da Guessin Map</h1>
+        <div id="map" style="height: 600px; width: 60%;"></div>
         <div id="roundNumber">Round #1</div>
         <img id="myImage" src="photos/IMG_8616.jpg" alt="Initial Image">
         <button class="btn" onclick="changeImage()">Next Image</button>
