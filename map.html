@@ -28,5 +28,27 @@
         <h1>Da Guessin Map</h1>
         <div id="map" style="height: 600px; width: 60%;"></div>
     </div>
+
+        
+    <div id="image-container"></div>
+    
+    <script>
+        const images = [
+            'photos/IMG_8616.jpg',
+            'photos/IMG_8680.jpg',
+            'photos/IMG_8681.jpg',
+            'photos/IMG_8683.jpg',
+            'photos/IMG_8684.jpg',
+            'photos/IMG_8685.jpg',
+        ];
+    
+        const container = document.getElementById('image-container');
+    
+        for (let i = 0; i < images.length; i++) {
+            const img = document.createElement('img');
+            img.src = images[i];
+            container.appendChild(img);
+        }
+    </script>
 </body>
 </html>
