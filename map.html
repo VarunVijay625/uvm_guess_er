@@ -35,9 +35,34 @@
          alt="Initial Image">
     <button class="btn"onclick="changeImage()">Change Image</button>
     <script>
+        let imagePaths = [
+            "photos/IMG_8616.jpg",
+            "photos/IMG_8684.jpg",
+            "photos/IMG_8680.jpg",
+            "photos/IMG_8681.jpg",
+            "photos/IMG_8683.jpg",
+            "photos/IMG_8685.jpg"
+        ];
+        let currentIndex = 0;
+    
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; 
+            }
+        }
+    
         function changeImage() {
-            let img = document.getElementById("myImage");
-            img.src = "photos/IMG_8684.jpg";
+            if (currentIndex === 0) {
+                shuffleArray(imagePaths);
+            }
+    
+            document.getElementById("myImage").src = imagePaths[currentIndex];
+            currentIndex++;
+    
+            if (currentIndex >= imagePaths.length) {
+                currentIndex = 0;
+            }
         }
     </script>
 </body>
