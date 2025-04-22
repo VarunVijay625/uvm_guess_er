@@ -82,7 +82,7 @@
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 44.4781, lng: -73.1965 }, 
-                zoom: 15 
+                zoom: 16 
             });
 
             map.addListener('click', function(event) {
@@ -99,7 +99,7 @@
         <img id="myImage" src="photos/IMG_8616.jpg" alt="Initial Image">
         <button class="btn" onclick="changeImage()">Next Image</button>
         <h1>Da Guessin Map</h1>
-        <div id="map" style="height: 600px; width: 50%;"></div>
+        <div id="map" style="height: 600px; width: 40%;"></div>
         <button class="btn" onclick="guess()">Guess</button>
     </div>
     <div id="map"></div>
