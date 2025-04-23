@@ -31,7 +31,6 @@
             padding: 10px 20px;
             font-size: 18px;
             background-color: darkgreen;
-            color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -82,14 +81,7 @@
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 44.4781, lng: -73.1965 }, 
                 zoom: 16,
-                mapTypeId: 'satellite',
-                styles: [
-                {
-                    featureType: "all",
-                    elementType: "labels",
-                    stylers: [{ visibility: "off" }]
-                }
-        ]
+                mapTypeId: 'satellite'
             });
 
             map.addListener('click', function(event) {
