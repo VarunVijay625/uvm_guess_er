@@ -97,19 +97,6 @@
             alert("You guessed: Latitude " + lat + ", Longitude " + lng);
         });
     </script>
-    <script>
-        var lat = 5
-        var lng = 6
-        function prtLL(){
-            map.addListener('click', function(event) {
-            lat = event.latLng.lat();
-            lng = event.latLng.lng();
-            alert("You guessed: Latitude " + lat + ", Longitude " + lng);
-        });
-
-        }
-        
-    </script>
 </head>
 <body onload="initMap()">
     <div class="container">
