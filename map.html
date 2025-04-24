@@ -55,6 +55,10 @@
          ];
          let currentIndex = 0;
          let roundNumber = 1;
+
+         var lat = 5;
+         var lng = 5;
+
  
          function shuffleArray(array) {
              for (let i = array.length - 1; i > 0; i--) {
@@ -94,10 +98,11 @@
              });
  
              map.addListener('click', function(event) {
-                 var lat = event.latLng.lat();
-                 var lng = event.latLng.lng();
+                 lat = event.latLng.lat();
+                 lng = event.latLng.lng();
                  alert("You guessed: Latitude " + lat + ", Longitude " + lng);
              });
+
          }
      </script>
  </head>
