@@ -45,6 +45,14 @@
          }
      </style>
      <script>
+        const sqlite3 = require('sqlite3').verbose();
+        const db = new sqlite3.Database('imgloc.db');
+
+        db.serialize(() => {
+        console.log('Connected to the database.');
+        });
+
+        
          let imagePaths = [
              "photos/IMG_8616.jpg",
              "photos/IMG_8684.jpg",
@@ -55,6 +63,8 @@
          ];
          let currentIndex = 0;
          let roundNumber = 1;
+
+         var guess = "hi";
 
          var lat = 5;
          var lng = 5;
@@ -81,6 +91,16 @@
              if (currentIndex >= imagePaths.length) {
                  currentIndex = 0;
              }
+
+             db.serialize(() => {
+                db.all('SELECT * FROM loc', (err, rows) => {
+                if (err) {
+                console.error('Error querying data:', err.message);
+                } else {
+                console.log('Query results:', rows);
+                }
+            });
+            });
          }
  
          function initMap() {
@@ -101,6 +121,8 @@
                  lat = event.latLng.lat();
                  lng = event.latLng.lng();
                  alert("You guessed: Latitude " + lat + ", Longitude " + lng);
+                 document.getElementById("guess").innerText = "Guess = " + lat + " " + lng;
+
              });
 
          }
@@ -113,7 +135,7 @@
          <button class="btn" onclick="changeImage()">Next Image</button>
          <h1>Guessing Map</h1>
          <div id="map" style="height: 600px; width: 40%;"></div>
-         <button class="btn" onclick="guess()">Guesss</button>
+         <button class="btn" onclick="guess()">Gues</button>
      </div>
      <div id="map"></div>
  </body>
