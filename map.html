@@ -1,141 +1,102 @@
 <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE-edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>UVM Map</title>
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmKKMQOproK0shfRGMj70n03icsCLk_hM"></script>
-     <style>
-         body {
-             text-align: center;
-             font-family: Arial, sans-serif;
-             background-color: rgb(106, 207, 152);
-         }
-         .container {
-             margin: 20px auto;
-         }
-         #roundNumber {
-             font-size: 24px;
-             font-weight: bold;
-             margin-bottom: 10px;
-         }
-         #myImage {
-             width: 900px; 
-             height: auto;
-             border: 5px solid darkgreen;
-             border-radius: 15px;
-             display: block;
-             margin: 20px auto;
-         }
-         .btn {
-             padding: 10px 20px;
-             font-size: 18px;
-             background-color: darkgreen;
-             color: white;
-             border: none;
-             border-radius: 10px;
-             cursor: pointer;
-             margin: 10px auto;
-         }
-         #map {
-             width: 60%;
-             height: 600px;
-             margin: 20px auto;
-         }
-     </style>
-     <script>
-        const sqlite3 = require('sqlite3').verbose();
-        const db = new sqlite3.Database('imgloc.db');
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UVM Map</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: rgb(106, 207, 152);
+    }
+    #myImage {
+      width: 90%;
+      max-width: 900px;
+      height: auto;
+      border: 5px solid darkgreen;
+      border-radius: 15px;
+      margin: 20px auto;
+      display: block;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: darkgreen;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px auto;
+    }
+    #map {
+      width: 90%;
+      max-width: 900px;
+      height: 600px;
+      margin: 20px auto;
+    }
+    #roundNumber, #guess {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px;
+    }
+  </style>
+  <script>
+    let imagePaths = [
+      "photos/IMG_8616.jpg",
+      "photos/IMG_8684.jpg",
+      "photos/IMG_8680.jpg",
+      "photos/IMG_8681.jpg",
+      "photos/IMG_8683.jpg",
+      "photos/IMG_8685.jpg"
+    ];
+    let currentIndex = 0;
+    let roundNumber = 1;
+    let lat = null;
+    let lng = null;
 
-        db.serialize(() => {
-        console.log('Connected to the database.');
-        });
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
 
-        
-         let imagePaths = [
-             "photos/IMG_8616.jpg",
-             "photos/IMG_8684.jpg",
-             "photos/IMG_8680.jpg",
-             "photos/IMG_8681.jpg",
-             "photos/IMG_8683.jpg",
-             "photos/IMG_8685.jpg"
-         ];
-         let currentIndex = 0;
-         let roundNumber = 1;
+    function changeImage() {
+      if (currentIndex === 0) shuffleArray(imagePaths);
+      document.getElementById("myImage").src = imagePaths[currentIndex];
+      document.getElementById("roundNumber").innerText = "Round #" + roundNumber;
+      currentIndex++;
+      roundNumber++;
+      if (currentIndex >= imagePaths.length) currentIndex = 0;
+    }
 
-         var guess = "hi";
+    function initMap() {
+      let map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 44.4781, lng: -73.1965 },
+        zoom: 16,
+        mapTypeId: 'satellite',
+        styles: [{ featureType: "all", elementType: "labels", stylers: [{ visibility: "off" }] }]
+      });
 
-         var lat = 5;
-         var lng = 5;
-
- 
-         function shuffleArray(array) {
-             for (let i = array.length - 1; i > 0; i--) {
-                 let j = Math.floor(Math.random() * (i + 1));
-                 [array[i], array[j]] = [array[j], array[i]];
-             }
-         }
- 
-         function changeImage() {
-             if (currentIndex === 0) {
-                 shuffleArray(imagePaths);
-             }
- 
-             document.getElementById("myImage").src = imagePaths[currentIndex];
-             document.getElementById("roundNumber").innerText = "Round #" + roundNumber;
- 
-             currentIndex++;
-             roundNumber++;
- 
-             if (currentIndex >= imagePaths.length) {
-                 currentIndex = 0;
-             }
-
-             db.serialize(() => {
-                db.all('SELECT * FROM loc', (err, rows) => {
-                if (err) {
-                console.error('Error querying data:', err.message);
-                } else {
-                console.log('Query results:', rows);
-                }
-            });
-            });
-         }
- 
-         function initMap() {
-             var map = new google.maps.Map(document.getElementById('map'), {
-                 center: { lat: 44.4781, lng: -73.1965 }, 
-                 zoom: 16,
-                 mapTypeId: 'satellite',
-                 styles: [
-                 {
-                     featureType: "all",
-                     elementType: "labels",
-                     stylers: [{ visibility: "off" }]
-                 }
-         ]
-             });
- 
-             map.addListener('click', function(event) {
-                 lat = event.latLng.lat();
-                 lng = event.latLng.lng();
-                 alert("You guessed: Latitude " + lat + ", Longitude " + lng);
-                 document.getElementById("guess").innerText = "Guess = " + lat + " " + lng;
-
-             });
-
-         }
-     </script>
- </head>
- <body onload="initMap()">
-     <div class="container">
-         <div id="roundNumber">Round #1</div>
-         <img id="myImage" src="photos/IMG_8616.jpg" alt="Initial Image">
-         <button class="btn" onclick="changeImage()">Next Image</button>
-         <h1>Guessing Map</h1>
-         <div id="map" style="height: 600px; width: 40%;"></div>
-         <button class="btn" onclick="guess()">Gues</button>
-     </div>
-     <div id="map"></div>
- </body>
+      map.addListener('click', function(event) {
+        lat = event.latLng.lat();
+        lng = event.latLng.lng();
+        document.getElementById("guess").innerText = `Guess = ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+      });
+    }
+  </script>
+</head>
+<body onload="initMap()">
+  <div class="container">
+    <div id="roundNumber">Round #1</div>
+    <img id="myImage" src="photos/IMG_8616.jpg" alt="Initial Image">
+    <button class="btn" onclick="changeImage()">Next Image</button>
+    <h1>Guessing Map</h1>
+    <div id="map"></div>
+    <div id="guess"></div>
+  </div>
+</body>
+</html>
