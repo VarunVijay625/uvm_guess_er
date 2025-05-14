@@ -52,6 +52,16 @@
       "photos/IMG_8683.jpg",
       "photos/IMG_8685.jpg"
     ];
+
+    anwers={ 
+     "IMG_8616":[44.2822,73.1148], 
+     "IMG_8680":[44.2846,73.1202], 
+     "IMG_8681":[44.2841, 73.1148],
+     "IMG_8683":[44.4251, 73.1141],
+     "IMG_8684":[44.2841,73.1141],
+     "IMG_8685":[44.28,73.1146]
+    };
+
     let currentIndex = 0;
     let roundNumber = 1;
     let lat = null;
@@ -84,8 +94,16 @@
       map.addListener('click', function(event) {
         lat = event.latLng.lat();
         lng = event.latLng.lng();
-        document.getElementById("guess").innerText = `Guess = ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+        let name = document.getElementById("myImage").src
+        let py1 = anwers.name[0] - lat
+        let py2 = anwers.name[1] - lng
+
+        document.getElementById("guess").innerText = `Guess = ${py1.toFixed(5)}, ${py2.toFixed(5)}`;
+
+
       });
+
     }
   </script>
 </head>
